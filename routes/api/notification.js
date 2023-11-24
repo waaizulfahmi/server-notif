@@ -5,10 +5,20 @@ const fetch = require("node-fetch");
 const router = express.Router();
 
 router.post("/sendToAll", (req, res) => {
+  res.setHeader("Access-Control-Allow-Credentials", true);
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET,OPTIONS,PATCH,DELETE,POST,PUT"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version"
+  );
   var notification = {
-    'title': "Kelas Baru Tersedia !",
-    'body': "Anda Dapat Mengaksesnya Sekarang Juga",
-    'icon': "subtitile",
+    title: "Kelas Baru Tersedia !",
+    body: "Anda Dapat Mengaksesnya Sekarang Juga",
+    icon: "subtitile",
   };
 
   var fcm_token = [
@@ -16,19 +26,19 @@ router.post("/sendToAll", (req, res) => {
   ];
 
   var notification_body = {
-    'notification': notification,
-    'registration_ids': fcm_token,
+    notification: notification,
+    registration_ids: fcm_token,
   };
 
   fetch("https://fcm.googleapis.com/fcm/send", {
-    'method': "POST",
-    'headers': {
+    method: "POST",
+    headers: {
       Authorization:
         "key=" +
         "AAAAXbd7h5U:APA91bH00OphYKAe610fiXa63DyTSaQDf4l65-CtiB3HmCCqcP1Oz1Lvib5C2g4DwnbbT31h5hRSr1eqomA_ir-AtAP9mWlzCp8aZ65NwPtr9WrhcVTUbka_9qY674P9Bd8uNGYGAPED",
       "Content-Type": "application/json",
     },
-    'body': JSON.stringify(notification_body),
+    body: JSON.stringify(notification_body),
   })
     .then(() => {
       res.status(200).send("send success");
