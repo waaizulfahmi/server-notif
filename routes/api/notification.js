@@ -31,10 +31,11 @@ router.post("/sendToAll", (req, res) => {
     body: JSON.stringify(notification_body),
   })
     .then(() => {
-      res.status(200).send("send success");
+      res.status(200).json({ status: "success", message: "send success" });
     })
     .catch((err) => {
-      res.status(400).send("send error");
+      res.status(400).json({ status: "error", message: "send error!" });
+
       console.log(err);
     });
 });
