@@ -11,7 +11,7 @@
       "src": "/api/notification/sendToAll",
       "methods": ["OPTIONS", "POST"],
       "headers": {
-        "Access-Control-Allow-Origin": "https://admin2-g-mooc-4d-blush.vercel.app",
+        "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Methods": "OPTIONS, POST",
         "Access-Control-Allow-Headers": "Content-Type"
       },
