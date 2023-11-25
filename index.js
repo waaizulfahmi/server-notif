@@ -9,13 +9,16 @@
 // app.listen(PORT, () => console.log("server started"));
 
 const express = require("express");
-const cors = require("cors"); // Import middleware CORS
-
+const cors = require("cors");
 const app = express();
 
-// Gunakan middleware CORS
+// Middleware to handle CORS globally
 app.use(cors());
 
+// Middleware to handle OPTIONS requests for specific route
+app.options("/api/notification/sendToAll", cors());
+
+// Your API routes
 app.use("/api/notification", require("./routes/api/notification"));
 
 const PORT = process.env.PORT || 5000;
