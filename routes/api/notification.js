@@ -1,21 +1,30 @@
 const express = require("express");
-
 const fetch = require("node-fetch");
-
 const router = express.Router();
 
-router.post("/sendToAll", (req, res) => {
+// Middleware to handle CORS for the entire router
+router.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Credentials", true);
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
     "Access-Control-Allow-Methods",
     "GET,OPTIONS,PATCH,DELETE,POST,PUT"
   );
-  res.status(200).send("OK");
   res.setHeader(
     "Access-Control-Allow-Headers",
     "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version"
   );
+
+  // Handle preflight requests
+  if (req.method === "OPTIONS") {
+    res.status(200).end();
+    return;
+  }
+
+  next();
+});
+
+router.post("/sendToAll", (req, res) => {
   var notification = {
     title: "Kelas Baru Tersedia !",
     body: "Anda Dapat Mengaksesnya Sekarang Juga",
