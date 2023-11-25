@@ -8,16 +8,6 @@
   ],
   "routes": [
     {
-      "src": "/api/notification/sendToAll",
-      "methods": ["OPTIONS", "POST"],
-      "headers": {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "OPTIONS, POST",
-        "Access-Control-Allow-Headers": "Content-Type"
-      },
-      "dest": "/api/notification/sendToAll"
-    },
-    {
       "src": "/(.*)",
       "dest": "/"
     }
